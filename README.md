@@ -24,3 +24,66 @@ Command to create a project
 ```bash
 mix new . --module Calculator --app calculator
 ```
+
+## Explaination
+
+### Source Code
+
+```bash
+/lib
+```
+
+This folder contains the Elixir Application Code
+
+```bash
+lib/calculator.ex
+```
+
+Purpose:
+
+- Defines a module with calculator functions.
+- The test cases will check if these functions work correctly.
+
+```bash
+lib/calculator_cli.exs
+```
+
+Purpose:
+
+- This is a script (.exs file) that interacts with the user via IO.puts and IO.gets.
+- It loads Calculator.ex to perform calculations.
+
+### Tests
+
+```bash
+/test
+```
+
+This folder contains unit tests using ExUnit
+
+```bash
+test/calculator_test.exs
+```
+
+Unit Tests
+
+- Defines test cases for Calculator using ExUnit.
+- assert checks if function outputs match expectations.
+- doctest Calculator runs examples from documentation as tests
+
+To run tests
+
+```bash
+mix test
+```
+
+```bash
+test/test_helper.exs
+```
+
+Test Setup
+
+ Purpose:
+
+- This file starts ExUnit before running tests.
+- Automatically loaded when running mix test.
