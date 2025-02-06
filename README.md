@@ -87,3 +87,27 @@ Test Setup
 
 - This file starts ExUnit before running tests.
 - Automatically loaded when running mix test.
+
+### Pipeline
+
+```bash
+mix deps.get
+```
+
+- mix is Elixir’s build tool (similar to npm for Node.js or pip for Python).
+- deps.get tells mix to download and install dependencies listed in mix.exs.
+
+```bash
+mix compile --warnings-as-errors
+```
+
+- This compiles all Elixir source files in the lib/ directory.
+- It ensures that all modules and functions are valid before running tests
+
+```bash
+mix test
+```
+
+Runs all test files inside the test/ directory.
+Executes assertions to check if functions return expected results.
+If a test fails, the GitHub Actions workflow stops and prevents merging
