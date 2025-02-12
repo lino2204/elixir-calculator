@@ -85,6 +85,10 @@ defmodule CalculatorTest do
     assert Calculator.add(1_000_000_000, 2_000_000_000) == 3_000_000_000
   end
 
+  test "substract with large numbers" do
+    assert Calculator.subtract(1_000_000_000, 2_000_000_000) == -1_000_000_000
+  end
+
   test "multiplication with large numbers" do
     assert Calculator.multiply(1_000_000, 1_000_000) == 1_000_000_000_000
   end
