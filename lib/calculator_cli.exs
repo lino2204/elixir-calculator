@@ -1,7 +1,6 @@
 Code.require_file("calculator.ex", "lib")
 
 defmodule CalculatorCLI do
-
   def start do
     IO.puts("Welcome to the Calculator CLI!")
     loop()
@@ -17,14 +16,22 @@ defmodule CalculatorCLI do
         System.halt(0)
 
       "sqrt" ->
-        number = get_number("Enter a number:")
+        number = get_number("Enter a number (must be non-negative):", allow_negative: false)
         process_result(Calculator.square_root(number))
 
-      _ ->
+      _ when op in ["add", "subtract", "multiply", "divide", "modulus", "power"]->
         num1 = get_number("Enter first number:")
         num2 = get_number("Enter second number:")
-        result = calculate(op, num1, num2)
-        process_result(result)
+
+        if op in ["divide", "modulus"] and num2 == 0 do
+          IO.puts("Error: Cannot #{op} by zero. Please enter a valid number.")
+          loop()
+        else
+          process_result(calculate(op, num1, num2))
+        end
+
+      _ ->
+        IO.puts("Invalid operation! Please choose from: add, subtract, multiply, divide, modulus, power, sqrt.")
     end
 
     loop()
@@ -33,19 +40,33 @@ defmodule CalculatorCLI do
   # Get input from user
   defp get_input(prompt) do
     IO.write(prompt)
-    String.trim(IO.gets(""))
+    input = IO.gets("") |> String.trim()
+
+    if input == "" do
+      IO.puts("Input cannot be empty. Try again.")
+      get_input(prompt)
+    else
+      input
+    end
   end
 
   # Get a valid number from user
-  defp get_number(prompt) do
+  defp get_number(prompt, opts \\ []) do
     IO.puts(prompt)
     input = get_input("> ")
 
     case Float.parse(input) do
-      {num, _} -> num
+      {num, _} ->
+        if Keyword.get(opts, :allow_negative, true) == false and num < 0 do
+          IO.puts("Invalid input. Please enter a non-negative number.")
+          get_number(prompt, opts)
+        else
+          num
+        end
+
       :error ->
         IO.puts("Invalid input. Please enter a valid number.")
-        get_number(prompt)  # Ask again
+        get_number(prompt, opts)  # Ask again
     end
   end
 
