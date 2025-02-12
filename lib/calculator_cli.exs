@@ -1,9 +1,15 @@
 Code.require_file("calculator.ex", "lib")
 
 defmodule CalculatorCLI do
+
   def start do
-    IO.puts("Enter operation (add, subtract, multiply, divide, modulus, power, sqrt):")
-    op = String.trim(IO.gets("> "))
+    IO.puts("Welcome to the Calculator CLI!")
+    loop()
+  end
+
+  defp loop do
+    IO.puts("\nEnter operation (add, subtract, multiply, divide, modulus, power, sqrt) or 'q' to quit:")
+    op = get_input("> ")
 
     case op do
       "sqrt" ->
