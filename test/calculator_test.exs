@@ -46,7 +46,7 @@ defmodule CalculatorTest do
   end
 
   test "division by zero returns an error" do
-    assert Calculator.divide(4, 0) == {:error, "Cannot divide by zero"}
+    assert Calculator.divide(4, 0) == {:error, "Cannot divide by zero. Please provide a non-zero denominator."}
   end
 
   test "division with decimals" do
@@ -58,7 +58,7 @@ defmodule CalculatorTest do
   end
 
   test "modulus by zero returns an error" do
-    assert Calculator.modulus(5, 0) == {:error, "Cannot divide by zero"}
+    assert Calculator.modulus(5, 0) == {:error, "Cannot calculate modulus with zero. Provide a non-zero divisor."}
   end
 
   test "power works" do
@@ -78,7 +78,7 @@ defmodule CalculatorTest do
   end
 
   test "square root of a negative number returns an error" do
-    assert Calculator.square_root(-9) == {:error, "Cannot calculate square root of a negative number"}
+    assert Calculator.square_root(-9) == {:error, "Square root of a negative number is not supported. Use a positive number."}
   end
 
   test "addition with large numbers" do
